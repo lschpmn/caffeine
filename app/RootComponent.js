@@ -21,7 +21,27 @@ export default class RootComponent extends Component {
       <Navigator 
         initialRoute={{title: 'root'}}
         renderScene={this.routeChange}
+        
+        navigationBar={
+          <Navigator.NavigationBar
+            routeMapper={{
+              LeftButton: () => null,
+              
+              Title: () => (<Text>Caffeine</Text>),
+              
+              RightButton: () => (<Text>Settings</Text>)
+            }}
+            
+            style={styles.navbar}
+          />
+        }
       />
     );
   }
 }
+
+const styles = {
+  navbar: {
+    backgroundColor: '#E0E0E0'
+  }
+};
