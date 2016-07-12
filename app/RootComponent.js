@@ -25,11 +25,9 @@ export default class RootComponent extends Component {
         navigationBar={
           <Navigator.NavigationBar
             routeMapper={{
-              LeftButton: () => null,
-              
-              Title: () => (<Text>Caffeine</Text>),
-              
-              RightButton: () => (<Text>Settings</Text>)
+              LeftButton: () => (null),
+              Title: () => (<Text style={styles.navbarText}>Caffeine</Text>),
+              RightButton: () => (<Text style={styles.navbarText}>Settings</Text>)
             }}
             
             style={styles.navbar}
@@ -42,6 +40,10 @@ export default class RootComponent extends Component {
 
 const styles = {
   navbar: {
-    backgroundColor: '#E0E0E0'
+    backgroundColor: '#3498db'
+  },
+  
+  navbarText: {
+    color: 'white'
   }
 };
