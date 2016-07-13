@@ -9,7 +9,10 @@ import MainView from './views/MainView';
 export default class RootComponent extends Component {
   constructor() {
     super();
-    this.state = {store: createStore(() => ({currLvl: 1}))};
+    this.state = {store: createStore(() => ({
+      currLvl: 1,
+      drinks: [1]
+    }))};
     
     this.routeChange = this.routeChange.bind(this);
   }
