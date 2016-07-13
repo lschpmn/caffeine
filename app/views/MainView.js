@@ -2,12 +2,13 @@
 
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
+import {connect} from 'react-redux';
 
-export default class MainView extends Component {
+class MainView extends Component {
   render() {
     return <View style={styles.container}>
       <View style={styles.top}>
-        <Text>top</Text>
+        <Text>{this.props.currLvl} mg</Text>
       </View>
       
       <View style={styles.middle}>
@@ -40,3 +41,5 @@ const styles = {
     flex: 1
   }
 };
+
+export default connect(({currLvl}) => ({currLvl}))(MainView);
