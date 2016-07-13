@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
+import AddDrink from '../components/AddDrink';
 import DrinkList from '../components/DrinkList';
 
 class MainView extends Component {
@@ -17,7 +18,7 @@ class MainView extends Component {
       </View>
       
       <View style={styles.bottom}>
-        <Text>bottom</Text>
+        <AddDrink />
       </View>
       
     </View>;
