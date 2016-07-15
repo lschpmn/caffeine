@@ -10,7 +10,7 @@ class MainView extends Component {
   render() {
     return <View style={styles.container}>
       <View style={styles.top}>
-        <Text>{this.props.currLvl} mg</Text>
+        <Text>0 mg</Text>
       </View>
       
       <View style={styles.middle}>

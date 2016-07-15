@@ -10,8 +10,22 @@ export default class RootComponent extends Component {
   constructor() {
     super();
     this.state = {store: createStore(() => ({
-      currLvl: 1,
-      drinks: [1]
+      drinks: [{
+        name: 'pill',
+        mgPerOz: 200,
+        amount: 1,
+        timestamp: 1468451177410
+      }],
+      drinkTypes: [
+        {
+          name: 'pill',
+          mgPerOz: 200
+        },
+        {
+          name: 'coffee',
+          mgPerOz: 50
+        }
+      ]
     }))};
     
     this.routeChange = this.routeChange.bind(this);

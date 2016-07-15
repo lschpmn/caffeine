@@ -17,7 +17,7 @@ class DrinkList extends Component {
     
     return <ListView 
       dataSource={dataSource}
-      renderRow={(rowData) => <Text>{rowData}</Text>}
+      renderRow={(drink) => <Text>{drink.name}</Text>}
     />;
   }
 }
