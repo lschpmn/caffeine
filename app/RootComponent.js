@@ -5,6 +5,7 @@ import {Navigator, Text} from 'react-native';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import MainView from './views/MainView';
+import {primaryColor} from './lib/COLORS';
 
 export default class RootComponent extends Component {
   constructor() {
@@ -63,7 +64,7 @@ export default class RootComponent extends Component {
 
 const styles = {
   navbar: {
-    backgroundColor: '#3498db'
+    backgroundColor: primaryColor
   },
   
   navbarText: {
