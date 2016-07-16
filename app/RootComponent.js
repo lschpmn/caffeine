@@ -3,31 +3,20 @@
 import React, {Component} from 'react';
 import {Navigator, Text} from 'react-native';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 import MainView from './views/MainView';
 import {primaryColor} from './lib/COLORS';
+import {drinksReducer, drinkTypesReducer} from './lib/reducers';
 
 export default class RootComponent extends Component {
   constructor() {
     super();
-    this.state = {store: createStore(() => ({
-      drinks: [{
-        name: 'pill',
-        mgPerOz: 200,
-        amount: 1,
-        timestamp: 1468451177410
-      }],
-      drinkTypes: [
-        {
-          name: 'pill',
-          mgPerOz: 200
-        },
-        {
-          name: 'coffee',
-          mgPerOz: 50
-        }
-      ]
-    }))};
+    const reducer = combineReducers({
+      drinks: drinksReducer,
+      drinkTypes: drinkTypesReducer
+    });
+    
+    this.state = {store: createStore(reducer)};
     
     this.routeChange = this.routeChange.bind(this);
   }
