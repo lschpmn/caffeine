@@ -30,3 +30,17 @@ export function drinkTypesReducer() {
 }
 
 export default {drinksReducer, drinkTypesReducer};
+
+/**
+ * @typedef {Object} drink
+ * @property {String} name
+ * @property {Number} mgPerOz
+ * @property {Number} amount
+ * @property {Number} created
+ */
+
+/**
+ * @typedef {Object} drinkType
+ * @property {String} name
+ * @property {Number} mgPerOz
+ */
