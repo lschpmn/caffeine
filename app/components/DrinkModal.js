@@ -2,7 +2,7 @@
 
 import moment from 'moment';
 import React, {Component} from 'react';
-import {DatePickerAndroid, Text, TextInput, TimePickerAndroid, TouchableNativeFeedback, Modal, Picker, View} from 'react-native';
+import {Alert, DatePickerAndroid, Text, TextInput, TimePickerAndroid, TouchableNativeFeedback, Modal, Picker, View} from 'react-native';
 import {connect} from 'react-redux';
 import {primaryColor, grey, white} from '../lib/COLORS';
 
@@ -72,6 +72,8 @@ class DrinkModal extends Component {
   }
   
   submit() {
+    if(this.state.amount.length === 0) return Alert.alert('Warning', 'Must have a positive amount');
+    
     this.props.dispatch({
       type: 'ADD_DRINK',
       drink: {
@@ -155,7 +157,6 @@ class DrinkModal extends Component {
             background={TouchableNativeFeedback.Ripple('red')}
             delayPressIn={0}
             onPress={this.submit}
-            disabled={this.state.amount.length === 0}
           >
             <View style={styles.submitButton}>
               <Text>Add Drink</Text>
