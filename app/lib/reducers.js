@@ -11,6 +11,17 @@ export function drinksReducer(state = drinksInit, action) {
   switch (action.type) {
     case 'ADD_DRINK':
       return [...state, action.drink];
+    case 'EDIT_DRINK':
+      return [
+        ...state.slice(0, action.index),
+        action.drink,
+        ...state.slice(action.index + 1)
+      ];
+    case 'DELETE_DRINK':
+      return [
+        ...state.slice(0, action.index),
+        ...state.slice(action.index + 1)
+      ];
     default:
       return state;
   }
