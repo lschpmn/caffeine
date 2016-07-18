@@ -2,22 +2,35 @@
 
 import React, {Component} from 'react';
 import {Text, TouchableNativeFeedback , View} from 'react-native';
+import {connect} from 'react-redux';
 import DrinkModal from './DrinkModal';
 import {primaryColor} from '../lib/COLORS';
 
-export default class AddDrink extends Component {
+class AddDrink extends Component {
+  /**
+   * @param {Redux.Dispatch} props.dispatch
+   */
   constructor(props) {
     super(props);
+    this.props = props;
     this.state = {
       showModal: false
     };
     
+    this.submitDrink = this.submitDrink.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
   
   toggleModal() {
     this.setState({
       showModal: !this.state.showModal
+    });
+  }
+  
+  submitDrink(drink) {
+    this.props.dispatch({
+      type: 'ADD_DRINK',
+      drink
     });
   }
   
@@ -31,7 +44,7 @@ export default class AddDrink extends Component {
         <View style={styles.button}>
           <Text>Add Drink</Text>
       
-          {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} /> : null}
+          {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.submitDrink} /> : null}
         </View>
       </TouchableNativeFeedback>
     </View>;
@@ -55,3 +68,5 @@ const styles = {
     flex: 1
   }
 };
+
+export default connect()(AddDrink);

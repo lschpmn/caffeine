@@ -7,12 +7,22 @@ import {connect} from 'react-redux';
 import {primaryColor, grey, white} from '../lib/COLORS';
 
 class DrinkModal extends Component {
+  /**
+   * @param {?Number} props.drinkAmount
+   * @param {?Number} props.drinkTime
+   * @param {drink[]} props.drinkTypes
+   * @param {?String} props.drinkTypeName
+   * @param {Function} props.submitDrink
+   * @param {Function} props.toggleModal
+   */
   constructor(props) {
     super(props);
+    const selected = props.drinkTypeName ? props.drinkTypes.findIndex(drink => drink.name === props.drinkTypeName) : 0;
+    this.props = props;
     this.state = {
-      selected: 0,
-      amount: '',
-      time: Date.now()
+      selected: selected,
+      amount: ''+(props.drinkAmount || ''), //easy way to deal with undefined and convert number to string
+      time: props.drinkTime || Date.now()
     };
     
     this.changeAmount = this.changeAmount.bind(this);
@@ -74,15 +84,13 @@ class DrinkModal extends Component {
   submit() {
     if(this.state.amount.length === 0) return Alert.alert('Warning', 'Must have a positive amount');
     
-    this.props.dispatch({
-      type: 'ADD_DRINK',
-      drink: {
-        ...this.props.drinkTypes[this.state.selected],
-        created: this.state.time,
-        amount: +this.state.amount
-      }
-    });
+    const drink = {
+      ...this.props.drinkTypes[this.state.selected],
+      created: this.state.time,
+      amount: +this.state.amount
+    };
     
+    this.props.submitDrink(drink);
     this.props.toggleModal();
   }
   
