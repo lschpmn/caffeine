@@ -21,7 +21,7 @@ class DrinkModal extends Component {
     this.props = props;
     this.state = {
       selected: selected,
-      amount: ''+(props.drinkAmount || ''), //easy way to deal with undefined and convert number to string
+      amount: ''+(props.drinkAmount || '1'), //easy way to deal with undefined and convert number to string
       time: props.drinkTime || Date.now()
     };
     
@@ -167,7 +167,7 @@ class DrinkModal extends Component {
             onPress={this.submit}
           >
             <View style={styles.submitButton}>
-              <Text>Add Drink</Text>
+              <Text>{this.props.drinkTypeName ? 'Edit Drink' : 'Add Drink'}</Text>
             </View>
           </TouchableNativeFeedback>
     
