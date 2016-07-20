@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import DrinkModal from './DrinkModal';
+import {calculate} from '../lib/caffeine-level';
 
 class DrinkList extends Component {
   /**
@@ -19,6 +20,8 @@ class DrinkList extends Component {
       modalSettings: {},
       selectedIndex: -1
     };
+    
+    setInterval(() => this.forceUpdate(), 1000);
   
     this.editDrink = this.editDrink.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -68,9 +71,16 @@ class DrinkList extends Component {
       <ListView
         dataSource={dataSource}
         renderRow={(drink, sectionID, rowID) => <View style={styles.row}>
+        <View style={styles.rowTop}>
           <Text style={{flex: 1}}>{drink.name}</Text>
           <Text style={{flex: 1}} onPress={() => this.toggleModal(rowID)}>Edit</Text>
           <Text style={{flex: 1}} onPress={() => this.deleteDrink(rowID)}>Delete</Text>
+        </View>
+        
+        <View style={styles.rowBottom}>
+          <Text style={{flex: 1,textAlign:'center'}}>{Math.floor(calculate(drink.mgPerOz*drink.amount,drink.created))}</Text>
+          <Text style={{flex: 1,textAlign:'center'}}>{drink.created}</Text>
+        </View>
         </View>}
       />
       
@@ -85,6 +95,15 @@ const styles = {
   },
   
   row: {
+    flex: 1
+  },
+  
+  rowTop: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  
+  rowBottom: {
     flex: 1,
     flexDirection: 'row'
   }
