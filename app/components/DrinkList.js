@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import {ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import DrinkModal from './DrinkModal';
-import {calculate} from '../lib/caffeine-level';
+import {calculateCaffeineLevel} from '../lib/functions';
 
 class DrinkList extends Component {
   /**
@@ -78,7 +78,7 @@ class DrinkList extends Component {
         </View>
         
         <View style={styles.rowBottom}>
-          <Text style={{flex: 1,textAlign:'center'}}>{Math.floor(calculate(drink.mgPerOz*drink.amount,drink.created))}</Text>
+          <Text style={{flex: 1,textAlign:'center'}}>{Math.floor(calculateCaffeineLevel(drink.mgPerOz*drink.amount,drink.created))}</Text>
           <Text style={{flex: 1,textAlign:'center'}}>{drink.created}</Text>
         </View>
         </View>}

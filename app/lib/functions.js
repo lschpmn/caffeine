@@ -9,7 +9,7 @@ const absorptionTime = 10;
  * @param {Number} timeTaken
  * @returns {Number}
  */
-export function calculate(totalCaffeine, timeTaken) {
+export function calculateCaffeineLevel(totalCaffeine, timeTaken) {
   const seconds = (Date.now() - timeTaken) / 1000;
   
   if(seconds <= absorptionTime) {
@@ -19,4 +19,4 @@ export function calculate(totalCaffeine, timeTaken) {
   }
 }
 
-export default {calculate};
+export default {calculateCaffeineLevel};
