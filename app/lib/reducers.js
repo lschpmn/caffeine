@@ -40,7 +40,16 @@ export function drinkTypesReducer() {
   ];
 }
 
-export default {drinksReducer, drinkTypesReducer};
+export function timeReducer(state = Date.now(), action) {
+  switch(action.type) {
+    case 'UPDATE_TIME':
+      return Date.now();
+    default:
+      return state;
+  }
+}
+
+export default {drinksReducer, drinkTypesReducer, timeReducer};
 
 /**
  * @typedef {Object} drink
