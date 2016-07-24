@@ -9,6 +9,7 @@ import {calculateCaffeineLevel} from '../lib/functions';
 class DrinkList extends Component {
   /**
    * @param {drink[]} props.drinks
+   * @param {Number} props.currTime
    * @param {Redux.Dispatch} props.dispatch
    */
   constructor(props) {
@@ -20,8 +21,6 @@ class DrinkList extends Component {
       modalSettings: {},
       selectedIndex: -1
     };
-    
-    setInterval(() => this.forceUpdate(), 1000);
   
     this.editDrink = this.editDrink.bind(this);
     this.renderRow = this.renderRow.bind(this);
@@ -31,8 +30,8 @@ class DrinkList extends Component {
   /**
    * @param {Number} created
    */
-  static createdTimeToHumanReadable(created) {
-    const age = ~~((Date.now() - created) / 1000);
+  createdTimeToHumanReadable(created) {
+    const age = ~~((this.props.currTime - created) / 1000);
     
     if(age < 60) {
       return `${age} second${age == 1 ? '' : 's'}`;
@@ -66,7 +65,7 @@ class DrinkList extends Component {
   
   renderRow(drink, sectionID, rowID) {
     const caffeineLevel = calculateCaffeineLevel(drink.mgPerOz * drink.amount, drink.created);
-    const age = DrinkList.createdTimeToHumanReadable(drink.created);
+    const age = this.createdTimeToHumanReadable(drink.created);
     
     return <View style={styles.row}>
       <View style={styles.rowTop}>
@@ -134,4 +133,4 @@ const styles = {
   }
 };
 
-export default connect(({drinks}) => ({drinks}))(DrinkList);
+export default connect(({drinks, currTime}) => ({drinks, currTime}))(DrinkList);
