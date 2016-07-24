@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Navigator, Text} from 'react-native';
+import {AsyncStorage, Navigator, Text} from 'react-native';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import MainView from './views/MainView';
@@ -22,6 +22,26 @@ export default class RootComponent extends Component {
     setInterval(() => this.state.store.dispatch({type: 'UPDATE_TIME'}), 1000);
     
     this.routeChange = this.routeChange.bind(this);
+  }
+  
+  componentDidMount() {
+    const store = this.state.store;
+    
+    AsyncStorage.getItem('drinks')
+      .then(drinks => {
+        if(!drinks) return;
+        
+        store.dispatch({
+          type: 'REPLACE_DRINKS',
+          drinks: JSON.parse(drinks)
+        });
+      });
+    
+    store.subscribe(() => {
+      const {drinks} = store.getState();
+      
+      AsyncStorage.setItem('drinks', JSON.stringify(drinks));
+    });
   }
   
   routeChange(route, navigator) {
