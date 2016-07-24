@@ -34,7 +34,7 @@ class DrinkList extends Component {
     const age = ~~((this.props.currTime - created) / 1000);
     
     if(age < 60) {
-      return `${age} second${age == 1 ? '' : 's'}`;
+      return `${age} second${age < 2 ? '' : 's'}`;
     } else if(age < 3600) {
       const mins = ~~(age / 60);
       
@@ -74,7 +74,7 @@ class DrinkList extends Component {
       </View>
   
       <View style={styles.rowBottom}>
-        <Text style={{flex:1,textAlign:'center'}}>{~~caffeineLevel} Mg from {drink.name}, Taken {age} ago</Text>
+        <Text style={{flex:1,textAlign:'center'}}>{~~caffeineLevel} mg from {drink.amount} oz of {drink.name}, taken {age} ago</Text>
       </View>
     </View>;
   }
