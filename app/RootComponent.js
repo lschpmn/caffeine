@@ -6,17 +6,20 @@ import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import MainView from './views/MainView';
 import {primaryColor} from './lib/COLORS';
-import {drinksReducer, drinkTypesReducer} from './lib/reducers';
+import {drinksReducer, drinkTypesReducer, timeReducer} from './lib/reducers';
 
 export default class RootComponent extends Component {
   constructor() {
     super();
     const reducer = combineReducers({
       drinks: drinksReducer,
-      drinkTypes: drinkTypesReducer
+      drinkTypes: drinkTypesReducer,
+      currTime: timeReducer
     });
     
     this.state = {store: createStore(reducer)};
+    
+    setInterval(() => this.state.store.dispatch({type: 'UPDATE_TIME'}), 1000);
     
     this.routeChange = this.routeChange.bind(this);
   }
