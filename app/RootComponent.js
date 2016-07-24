@@ -45,24 +45,30 @@ export default class RootComponent extends Component {
   }
   
   routeChange(route, navigator) {
-    
-    
-    return <MainView />;
+    switch(route.title) {
+      case 'settings':
+        return null;
+      case 'root':
+      default:
+        return <MainView />
+    }
   }
   
   render() {
     return (
       <Provider store={this.state.store}>
         <Navigator
-          initialRoute={{title: 'root'}}
+          initialRoute={{title: 'root', index: 0}}
           renderScene={this.routeChange}
       
           navigationBar={
             <Navigator.NavigationBar
               routeMapper={{
-                LeftButton: () => (null),
+                LeftButton: (route,nav) => route.index !== 0 ? <Text onPress={() => nav.jumpBack()}>Back</Text> : null,
+                
                 Title: () => (<Text style={styles.navbarText}>Caffeine</Text>),
-                RightButton: () => (<Text style={styles.navbarText}>Settings</Text>)
+                
+                RightButton: (route, nav) => route.index === 0 ? <Text style={styles.navbarText} onPress={() => nav.push({title: 'settings', index: 1})}>Settings</Text> : null
               }}
               
               style={styles.navbar}
