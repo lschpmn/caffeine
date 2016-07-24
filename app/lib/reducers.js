@@ -1,7 +1,7 @@
 'use strict';
 
 const drinksInit = [{
-  name: 'pill',
+  name: 'Pill',
   mgPerOz: 200,
   amount: 1,
   created: 1468451177410
@@ -30,11 +30,11 @@ export function drinksReducer(state = drinksInit, action) {
 export function drinkTypesReducer() {
   return [
     {
-      name: 'pill',
+      name: 'Pill',
       mgPerOz: 200
     },
     {
-      name: 'coffee',
+      name: 'Coffee',
       mgPerOz: 50
     }
   ];
