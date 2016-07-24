@@ -3,8 +3,8 @@
 const drinksInit = [{
   name: 'Pill',
   mgPerOz: 200,
-  amount: 1,
-  created: 1468451177410
+  amount: 5,
+  created: Date.now()
 }];
 
 export function drinksReducer(state = drinksInit, action) {
@@ -22,6 +22,8 @@ export function drinksReducer(state = drinksInit, action) {
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
       ];
+    case 'REPLACE_DRINKS':
+      return action.drinks;
     default:
       return state;
   }
