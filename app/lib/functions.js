@@ -1,8 +1,8 @@
 'use strict';
 
 //both in seconds
-const halfLife = 18;
-const absorptionTime = 10;
+const halfLife = 18000;
+const absorptionTime = 2700;
 
 /**
  * @param {Number} totalCaffeine
