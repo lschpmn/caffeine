@@ -24,7 +24,27 @@ class DrinkList extends Component {
     setInterval(() => this.forceUpdate(), 1000);
   
     this.editDrink = this.editDrink.bind(this);
+    this.renderRow = this.renderRow.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+  }
+  
+  /**
+   * @param {Number} created
+   */
+  static createdTimeToHumanReadable(created) {
+    const age = ~~((Date.now() - created) / 1000);
+    
+    if(age < 60) {
+      return `${age} second${age == 1 ? '' : 's'}`;
+    } else if(age < 3600) {
+      const mins = ~~(age / 60);
+      
+      return `${mins} minute${mins == 1 ? '' : 's'}`;
+    } else {
+      const hours = ~~(age / 3600);
+      
+      return `${hours} hour${hours == 1 ? '' : 's'}`;
+    }
   }
   
   deleteDrink(index) {
@@ -42,6 +62,22 @@ class DrinkList extends Component {
       drink,
       index: this.state.selectedIndex
     });
+  }
+  
+  renderRow(drink, sectionID, rowID) {
+    const caffeineLevel = calculateCaffeineLevel(drink.mgPerOz * drink.amount, drink.created);
+    const age = DrinkList.createdTimeToHumanReadable(drink.created);
+    
+    return <View style={styles.row}>
+      <View style={styles.rowTop}>
+        <Text style={{flex:1,textAlign:'center'}} onPress={() => this.toggleModal(rowID)}>Edit</Text>
+        <Text style={{flex:1,textAlign:'center'}} onPress={() => this.deleteDrink(rowID)}>Delete</Text>
+      </View>
+  
+      <View style={styles.rowBottom}>
+        <Text style={{flex:1,textAlign:'center'}}>{~~caffeineLevel} Mg from {drink.name}, Taken {age} ago</Text>
+      </View>
+    </View>;
   }
   
   toggleModal(index) {
@@ -70,18 +106,7 @@ class DrinkList extends Component {
     return <View style={styles.container}>
       <ListView
         dataSource={dataSource}
-        renderRow={(drink, sectionID, rowID) => <View style={styles.row}>
-        <View style={styles.rowTop}>
-          <Text style={{flex: 1}}>{drink.name}</Text>
-          <Text style={{flex: 1}} onPress={() => this.toggleModal(rowID)}>Edit</Text>
-          <Text style={{flex: 1}} onPress={() => this.deleteDrink(rowID)}>Delete</Text>
-        </View>
-        
-        <View style={styles.rowBottom}>
-          <Text style={{flex: 1,textAlign:'center'}}>{Math.floor(calculateCaffeineLevel(drink.mgPerOz*drink.amount,drink.created))}</Text>
-          <Text style={{flex: 1,textAlign:'center'}}>{drink.created}</Text>
-        </View>
-        </View>}
+        renderRow={this.renderRow}
       />
       
       {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.editDrink} {...this.state.modalSettings} /> : null}
