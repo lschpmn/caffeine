@@ -7,6 +7,17 @@ const drinksInit = [{
   created: Date.now()
 }];
 
+const drinkTypesInit = [
+  {
+    name: 'Pill',
+    mgPerOz: 200
+  },
+  {
+    name: 'Coffee',
+    mgPerOz: 50
+  }
+];
+
 export function drinksReducer(state = drinksInit, action) {
   switch (action.type) {
     case 'ADD_DRINK':
@@ -29,17 +40,24 @@ export function drinksReducer(state = drinksInit, action) {
   }
 }
 
-export function drinkTypesReducer() {
-  return [
-    {
-      name: 'Pill',
-      mgPerOz: 200
-    },
-    {
-      name: 'Coffee',
-      mgPerOz: 50
-    }
-  ];
+export function drinkTypesReducer(state = drinkTypesInit, action) {
+  switch(action.type) {
+    case 'ADD_DRINK_TYPE':
+      return [...state, action.drinkType];
+    case 'EDIT_DRINK_TYPE':
+      return [
+        ...state.slice(0, action.index),
+        action.drink,
+        ...state.slice(action.index + 1)
+      ];
+    case 'DELETE_DRINK_TYPE':
+      return [
+        ...state.slice(0, action.index),
+        ...state.slice(action.index + 1)
+      ];
+    default:
+      return state;
+  }
 }
 
 export function timeReducer(state = Date.now(), action) {
