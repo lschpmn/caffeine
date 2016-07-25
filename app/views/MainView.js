@@ -27,8 +27,7 @@ export default class MainView extends Component {
 
 const styles = {
   container: {
-    flex: 1,
-    marginTop: 55
+    flex: 1
   },
   
   top: {

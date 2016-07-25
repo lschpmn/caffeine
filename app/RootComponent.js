@@ -1,12 +1,13 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {AsyncStorage, Navigator, Text} from 'react-native';
+import {AsyncStorage, Navigator, Text, View} from 'react-native';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
 import MainView from './views/MainView';
 import {primaryColor} from './lib/COLORS';
 import {drinksReducer, drinkTypesReducer, timeReducer} from './lib/reducers';
+import SettingsView from './views/SettingsView';
 
 export default class RootComponent extends Component {
   constructor() {
@@ -45,13 +46,18 @@ export default class RootComponent extends Component {
   }
   
   routeChange(route, navigator) {
+    let view;
+    
     switch(route.title) {
       case 'settings':
-        return null;
+        view = <SettingsView />;
+        break;
       case 'root':
       default:
-        return <MainView />
+        view = <MainView />;
     }
+    
+    return <View style={styles.container}>{view}</View>;
   }
   
   render() {
@@ -81,6 +87,11 @@ export default class RootComponent extends Component {
 }
 
 const styles = {
+  container: {
+    flex: 1,
+    marginTop: 55
+  },
+  
   navbar: {
     backgroundColor: primaryColor
   },
