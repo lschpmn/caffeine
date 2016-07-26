@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 class SettingsView extends Component {
   /**
    * @param {drink[]} props.drinkTypes
+   * @param {Redux.Dispatch} props.dispatch
    */
   constructor(props) {
     super(props);
@@ -18,10 +19,17 @@ class SettingsView extends Component {
     this.renderRow = this.renderRow.bind(this);
   }
   
+  deleteDrinkType(index) {
+    this.props.dispatch({
+      type: 'DELETE_DRINK_TYPE',
+      index
+    });
+  }
+  
   /**
    * @param {drinkType} drinkType
    */
-  renderRow(drinkType) {
+  renderRow(drinkType, sectionID, rowID) {
     return <View style={{flex: 1, flexDirection: 'row'}}>
       <View style={{flex: 3}}>
         <Text>{drinkType.name}, {drinkType.mgPerOz} mg per oz</Text>
@@ -32,7 +40,7 @@ class SettingsView extends Component {
       </View>
   
       <View style={{flex: 1}}>
-        <Text>Delete</Text>
+        <Text onPress={() => this.deleteDrinkType(rowID)}>Delete</Text>
       </View>
     </View>
   }
