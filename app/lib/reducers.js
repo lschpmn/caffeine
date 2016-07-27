@@ -47,7 +47,7 @@ export function drinkTypesReducer(state = drinkTypesInit, action) {
     case 'EDIT_DRINK_TYPE':
       return [
         ...state.slice(0, action.index),
-        action.drink,
+        action.drinkType,
         ...state.slice(action.index + 1)
       ];
     case 'DELETE_DRINK_TYPE':
