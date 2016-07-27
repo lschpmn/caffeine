@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
+import DrinkTypeModal from '../components/DrinkTypeModal';
 
 class SettingsView extends Component {
   /**
@@ -13,10 +14,13 @@ class SettingsView extends Component {
     super(props);
     this.props = props;
     this.state = {
-      ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+      ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
+      isVisible: false,
+      index: -1
     };
     
     this.renderRow = this.renderRow.bind(this);
+    this.submit = this.submit.bind(this);
   }
   
   deleteDrinkType(index) {
@@ -29,6 +33,19 @@ class SettingsView extends Component {
   /**
    * @param {drinkType} drinkType
    */
+  submit(drinkType) {
+    this.props.dispatch({
+      type: 'EDIT_DRINK_TYPE',
+      drinkType,
+      index: this.state.index
+    });
+  }
+  
+  /**
+   * @param {drinkType} drinkType
+   * @param {Number} sectionID
+   * @param {Number} rowID
+   */
   renderRow(drinkType, sectionID, rowID) {
     return <View style={{flex: 1, flexDirection: 'row'}}>
       <View style={{flex: 3}}>
@@ -36,7 +53,7 @@ class SettingsView extends Component {
       </View>
       
       <View style={{flex: 1}}>
-        <Text>Edit</Text>
+        <Text onPress={() => this.setState({isVisible: true, index: rowID})}>Edit</Text>
       </View>
   
       <View style={{flex: 1}}>
@@ -47,11 +64,19 @@ class SettingsView extends Component {
   
   render() {
     const dataSource = this.state.ds.cloneWithRows(this.props.drinkTypes);
+    const configuredModal = <DrinkTypeModal
+      isVisible={this.state.isVisible}
+      closeModal={() => this.setState({isVisible: false})}
+      index={this.state.index}
+      submit={this.submit}
+    />;
     
     return <View style={{flex:1}}>
       <View style={styles.head}>
         <Text style={styles.title}>Drink Types</Text>
       </View>
+      
+      {this.state.isVisible ? configuredModal : null}
       
       <View style={{flex:1}}>
         <ListView
