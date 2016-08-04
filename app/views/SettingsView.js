@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
+import AddDrinkType from '../components/AddDrinkType';
 import DrinkTypeModal from '../components/DrinkTypeModal';
 
 class SettingsView extends Component {
@@ -78,11 +79,15 @@ class SettingsView extends Component {
       
       {this.state.isVisible ? configuredModal : null}
       
-      <View style={{flex:1}}>
+      <View style={{flex:4}}>
         <ListView
           dataSource={dataSource}
           renderRow={this.renderRow}
         />
+      </View>
+      
+      <View style={{flex:1}}>
+        <AddDrinkType />
       </View>
     </View>;
   }
