@@ -8,7 +8,6 @@ import MyModal from './MyModal';
 
 class DrinkTypeModal extends Component {
   /**
-   * @param {Boolean} props.isVisible
    * @param {Function} props.closeModal
    * @param {Number} props.index
    * @param {drinkType[]} props.drinkTypes
@@ -47,7 +46,7 @@ class DrinkTypeModal extends Component {
   
   render() {
     return <MyModal 
-      isVisible={this.props.isVisible} 
+      isVisible={true} 
       toggleModal={this.props.closeModal}
       toRender={
         <View>

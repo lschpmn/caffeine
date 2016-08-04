@@ -66,7 +66,6 @@ class SettingsView extends Component {
   render() {
     const dataSource = this.state.ds.cloneWithRows(this.props.drinkTypes);
     const configuredModal = <DrinkTypeModal
-      isVisible={this.state.isVisible}
       closeModal={() => this.setState({isVisible: false})}
       index={this.state.index}
       submit={this.submit}
