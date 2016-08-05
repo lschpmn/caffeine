@@ -38,10 +38,21 @@ export default class RootComponent extends Component {
         });
       });
     
+    AsyncStorage.getItem('drinkTypes')
+      .then(drinkTypes => {
+        if(!drinkTypes) return;
+  
+        store.dispatch({
+          type: 'REPLACE_DRINK_TYPES',
+          drinkTypes: JSON.parse(drinkTypes)
+        });
+      });
+    
     store.subscribe(() => {
-      const {drinks} = store.getState();
+      const {drinks, drinkTypes} = store.getState();
       
       AsyncStorage.setItem('drinks', JSON.stringify(drinks));
+      AsyncStorage.setItem('drinkTypes', JSON.stringify(drinkTypes));
     });
   }
   
