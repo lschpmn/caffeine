@@ -55,6 +55,8 @@ export function drinkTypesReducer(state = drinkTypesInit, action) {
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
       ];
+    case 'REPLACE_DRINK_TYPES':
+      return action.drinkTypes;
     default:
       return state;
   }
