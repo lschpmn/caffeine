@@ -1,11 +1,12 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {AsyncStorage, Navigator, Text, View} from 'react-native';
+import {AsyncStorage, Navigator, Text, TouchableNativeFeedback, View} from 'react-native';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers} from 'redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import MainView from './views/MainView';
-import {primaryColor} from './lib/COLORS';
+import {primaryColor, white} from './lib/COLORS';
 import {drinksReducer, drinkTypesReducer, timeReducer} from './lib/reducers';
 import SettingsView from './views/SettingsView';
 
@@ -72,6 +73,42 @@ export default class RootComponent extends Component {
   }
   
   render() {
+    const backButton = (route, nav) => {
+      if(route.index === 0) return null;
+      
+      return <TouchableNativeFeedback
+        onPress={() => nav.jumpBack()}
+        background={TouchableNativeFeedback.Ripple('white')}
+        delayPressIn={0}
+      >
+        <View style={{flex: 1}}>
+          <Icon
+            name='keyboard-arrow-left'
+            color={white} size={30}
+            style={styles.settingsIcon}
+          />
+        </View>
+      </TouchableNativeFeedback>
+    };
+    
+    const settingsButton = (route, nav) => {
+      if(route.index !== 0) return null;
+      
+      return <TouchableNativeFeedback
+        onPress={() => nav.push({title: 'settings', index: 1})}
+        background={TouchableNativeFeedback.Ripple('white')}
+        delayPressIn={0}
+      >
+        <View style={{flex: 1}}>
+          <Icon
+            name='settings'
+            color={white} size={30}
+            style={styles.settingsIcon}
+          />
+        </View>
+      </TouchableNativeFeedback>
+    };
+    
     return (
       <Provider store={this.state.store}>
         <Navigator
@@ -81,11 +118,9 @@ export default class RootComponent extends Component {
           navigationBar={
             <Navigator.NavigationBar
               routeMapper={{
-                LeftButton: (route,nav) => route.index !== 0 ? <Text onPress={() => nav.jumpBack()}>Back</Text> : null,
-                
+                LeftButton: backButton,
                 Title: () => (<Text style={styles.navbarText}>Caffeine</Text>),
-                
-                RightButton: (route, nav) => route.index === 0 ? <Text style={styles.navbarText} onPress={() => nav.push({title: 'settings', index: 1})}>Settings</Text> : null
+                RightButton: settingsButton
               }}
               
               style={styles.navbar}
@@ -108,6 +143,15 @@ const styles = {
   },
   
   navbarText: {
-    color: 'white'
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlignVertical: 'center',
+    flex: 1
+  },
+  
+  settingsIcon: {
+    textAlignVertical: 'center',
+    flex: 1
   }
 };
