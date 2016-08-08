@@ -44,6 +44,7 @@ const style = {
     textAlign: 'right',
     textAlignVertical: 'bottom',
     fontSize: 50,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginRight: 10
   }
 };
