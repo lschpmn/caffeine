@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import {Text, TouchableNativeFeedback , View} from 'react-native';
 import {connect} from 'react-redux';
 import DrinkModal from './DrinkModal';
-import {primaryColor} from '../lib/COLORS';
+import {primaryColor, white} from '../lib/COLORS';
 
 class AddDrink extends Component {
   /**
@@ -42,7 +42,7 @@ class AddDrink extends Component {
         delayPressIn={0}
       >
         <View style={styles.button}>
-          <Text>Add Drink</Text>
+          <Text style={styles.buttonText}>Add Drink</Text>
       
           {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.submitDrink} /> : null}
         </View>
@@ -55,16 +55,21 @@ const styles = {
   button: {
     backgroundColor: primaryColor,
     borderRadius: 3,
-    height: 45,
-    marginHorizontal: 20
+    flex: 1,
+    margin: 10,
+    elevation: 5
+  },
+  
+  buttonText: {
+    flex: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: white
   },
   
   container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  
-  spacer: {
     flex: 1
   }
 };
