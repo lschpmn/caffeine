@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {Text, TouchableNativeFeedback , View} from 'react-native';
 import {connect} from 'react-redux';
+import Button from './Button';
 import DrinkModal from './DrinkModal';
 import {primaryColor, white} from '../lib/COLORS';
 
@@ -35,31 +36,19 @@ class AddDrink extends Component {
   }
   
   render() {
-    return <View style={styles.container}>
-      <TouchableNativeFeedback
+    return <View style={{flex: 1}}>
+      <Button
         onPress={this.toggleModal}
-        background={TouchableNativeFeedback.Ripple('red')}
-        delayPressIn={0}
       >
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Add Drink</Text>
-      
-          {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.submitDrink} /> : null}
-        </View>
-      </TouchableNativeFeedback>
+        <Text style={styles.buttonText}>Add Drink</Text>
+  
+        {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.submitDrink} /> : null}
+      </Button>
     </View>;
   }
 }
 
 const styles = {
-  button: {
-    backgroundColor: primaryColor,
-    borderRadius: 3,
-    flex: 1,
-    margin: 10,
-    elevation: 5
-  },
-  
   buttonText: {
     flex: 1,
     textAlign: 'center',
@@ -67,10 +56,6 @@ const styles = {
     fontSize: 30,
     fontWeight: 'bold',
     color: white
-  },
-  
-  container: {
-    flex: 1
   }
 };
 
