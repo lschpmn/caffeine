@@ -31,11 +31,11 @@ const styles = {
   },
   
   top: {
-    flex: 1
+    flex: 2
   },
   
   middle: {
-    flex: 3
+    flex: 5
   },
   
   bottom: {
