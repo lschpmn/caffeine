@@ -8,7 +8,6 @@ export default class MyModal extends Component {
   /**
    * @param {Boolean} props.isVisible
    * @param {Function} props.toggleModal
-   * @param {React.Component} props.toRender
    */
   constructor(props) {
     super(props);
@@ -31,8 +30,7 @@ export default class MyModal extends Component {
             <Text style={styles.closeButton} onPress={this.props.toggleModal}>Close</Text>
           </View>
           
-          {this.props.toRender}
-          
+          {this.props.children}
         </View>
       </View>
       

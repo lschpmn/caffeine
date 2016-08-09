@@ -48,46 +48,41 @@ class DrinkTypeModal extends Component {
     return <MyModal 
       isVisible={true} 
       toggleModal={this.props.closeModal}
-      toRender={
-        <View>
-          
-          {/*Drink name*/}
-          <View style={{flex: 1,flexDirection: 'row'}}>
-            <Text style={{flex: 1}}>Drink</Text>
-            
-            <TextInput 
-              value={this.state.drinkInput}
-              onChangeText={newText => this.setState({drinkInput: newText})}
-              style={{flex: 3}}
-            />
-          </View>
-          
-          {/*Mg per Oz input*/}
-          <View style={{flex: 1,flexDirection: 'row'}}>
-            <Text style={{flex: 1}}>Mg per Oz</Text>
-            
-            <TextInput 
-              value={''+this.state.drinkAmount}
-              onChangeText={newText => this.setState({drinkAmount: +newText})}
-              style={{flex: 3}}
-              keyboardType={'numeric'}
-            />
-          </View>
-          
-          {/*Submit*/}
-          <TouchableNativeFeedback
-            background={TouchableNativeFeedback.Ripple('red')}
-            delayPressIn={0}
-            onPress={this.submit}
-          >
-            <View style={styles.submitButton}>
-              <Text>{this.props.index !== -1 ? 'Edit Drink Type' : 'Add Drink Type'}</Text>
-            </View>
-          </TouchableNativeFeedback>
-          
+    >
+      {/*Drink name*/}
+      <View style={{flex: 1,flexDirection: 'row'}}>
+        <Text style={{flex: 1}}>Drink</Text>
+    
+        <TextInput
+          value={this.state.drinkInput}
+          onChangeText={newText => this.setState({drinkInput: newText})}
+          style={{flex: 3}}
+        />
+      </View>
+  
+      {/*Mg per Oz input*/}
+      <View style={{flex: 1,flexDirection: 'row'}}>
+        <Text style={{flex: 1}}>Mg per Oz</Text>
+    
+        <TextInput
+          value={''+this.state.drinkAmount}
+          onChangeText={newText => this.setState({drinkAmount: +newText})}
+          style={{flex: 3}}
+          keyboardType={'numeric'}
+        />
+      </View>
+  
+      {/*Submit*/}
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple('red')}
+        delayPressIn={0}
+        onPress={this.submit}
+      >
+        <View style={styles.submitButton}>
+          <Text>{this.props.index !== -1 ? 'Edit Drink Type' : 'Add Drink Type'}</Text>
         </View>
-      }
-    />;
+      </TouchableNativeFeedback>
+    </MyModal>;
   }
 }
 
