@@ -1,8 +1,10 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {ListView, Text, View} from 'react-native';
+import {ListView, Text, TouchableNativeFeedback, View} from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
+import {red} from '../lib/COLORS';
 import DrinkModal from './DrinkModal';
 import {calculateCaffeineLevel} from '../lib/functions';
 
@@ -67,14 +69,34 @@ class DrinkList extends Component {
     const caffeineLevel = calculateCaffeineLevel(drink.mgPerOz * drink.amount, drink.created);
     const age = this.createdTimeToHumanReadable(drink.created);
     
-    return <View style={styles.row}>
-      <View style={styles.rowTop}>
-        <Text style={{flex:1,textAlign:'center'}} onPress={() => this.toggleModal(rowID)}>Edit</Text>
-        <Text style={{flex:1,textAlign:'center'}} onPress={() => this.deleteDrink(rowID)}>Delete</Text>
+    return <View style={{...styles.row}} elevation={3}>
+      <View style={{flex: 5}}>
+        <Text>{~~caffeineLevel} mg from {drink.amount} oz of {drink.name}</Text>
+        <Text>Taken {age} ago</Text>
+      </View>
+      
+      <View style={{flex: 1}}>
+        <TouchableNativeFeedback
+          onPress={() => this.toggleModal(+rowID)}
+          background={TouchableNativeFeedback.Ripple('grey')}
+          delayPressIn={0}
+        >
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <MaterialIcon name="mode-edit" size={30} style={{textAlign: 'center'}} />
+          </View>
+        </TouchableNativeFeedback>
       </View>
   
-      <View style={styles.rowBottom}>
-        <Text style={{flex:1,textAlign:'center'}}>{~~caffeineLevel} mg from {drink.amount} oz of {drink.name}, taken {age} ago</Text>
+      <View style={{flex: 1}}>
+        <TouchableNativeFeedback
+          onPress={() => this.deleteDrink(+rowID)}
+          background={TouchableNativeFeedback.Ripple('red')}
+          delayPressIn={0}
+        >
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <MaterialIcon name="delete" size={30} color={red} style={{textAlign: 'center'}} />
+          </View>
+        </TouchableNativeFeedback>
       </View>
     </View>;
   }
@@ -103,10 +125,10 @@ class DrinkList extends Component {
     const dataSource = this.state.ds.cloneWithRows(this.props.drinks);
     
     return <View style={styles.container}>
-      <ListView
+      {this.props.drinks.length !== 0 ? <ListView
         dataSource={dataSource}
         renderRow={this.renderRow}
-      />
+      /> : <Text style={styles.emptyText}>No Drinks</Text>}
       
       {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.editDrink} {...this.state.modalSettings} /> : null}
     </View>;
@@ -115,21 +137,24 @@ class DrinkList extends Component {
 
 const styles = {
   container: {
-    marginHorizontal: 5
-  },
-  
-  row: {
     flex: 1
   },
   
-  rowTop: {
-    flex: 1,
-    flexDirection: 'row'
+  emptyText: {
+    margin: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 15
   },
   
-  rowBottom: {
+  row: {
+    backgroundColor: 'white',
+    borderRadius: 3,
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    marginVertical: 5,
+    paddingHorizontal: 5
   }
 };
 
