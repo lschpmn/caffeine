@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import {TouchableNativeFeedback, View} from 'react-native';
-import {primaryColor} from '../lib/COLORS';
+import {primaryColor, white} from '../lib/COLORS';
 
 export default class Button extends Component{
   /**
@@ -27,6 +27,15 @@ export default class Button extends Component{
     </TouchableNativeFeedback>
   }
 }
+
+Button.defaultTextStyle = {
+  flex: 1,
+  textAlign: 'center',
+  textAlignVertical: 'center',
+  fontSize: 30,
+  fontWeight: 'bold',
+  color: white
+};
 
 const styles = {
   button: {

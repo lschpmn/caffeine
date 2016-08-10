@@ -40,23 +40,12 @@ class AddDrink extends Component {
       <Button
         onPress={this.toggleModal}
       >
-        <Text style={styles.buttonText}>Add Drink</Text>
+        <Text style={Button.defaultTextStyle}>Add Drink</Text>
   
         {this.state.showModal ? <DrinkModal toggleModal={this.toggleModal} submitDrink={this.submitDrink} /> : null}
       </Button>
     </View>;
   }
 }
-
-const styles = {
-  buttonText: {
-    flex: 1,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: white
-  }
-};
 
 export default connect()(AddDrink);
