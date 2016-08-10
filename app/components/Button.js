@@ -9,6 +9,7 @@ export default class Button extends Component{
    * @param {Function} props.onPress
    * @param {?String} props.rippleColor
    * @param {?String} props.buttonColor
+   * @param {Object} props.style
    */
   constructor(props) {
     super(props);
@@ -21,7 +22,7 @@ export default class Button extends Component{
       background={TouchableNativeFeedback.Ripple(this.props.rippleColor || 'red')}
       delayPressIn={0}
     >
-      <View style={{...styles.button, backgroundColor: this.props.buttonColor || primaryColor }}>
+      <View style={{...styles.button, ...this.props.style, backgroundColor: this.props.buttonColor || primaryColor }}>
         {this.props.children}
       </View>
     </TouchableNativeFeedback>
