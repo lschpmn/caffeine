@@ -4,7 +4,9 @@ import moment from 'moment';
 import React, {Component} from 'react';
 import {Alert, DatePickerAndroid, Text, TextInput, TimePickerAndroid, TouchableNativeFeedback, Modal, Picker, View} from 'react-native';
 import {connect} from 'react-redux';
-import {primaryColor, grey, white} from '../lib/COLORS';
+import Button from './Button';
+import {grey} from '../lib/COLORS';
+import MyModal from './MyModal';
 
 class DrinkModal extends Component {
   /**
@@ -95,121 +97,68 @@ class DrinkModal extends Component {
   }
   
   render() {
-    return <Modal
-      onRequestClose={() => {}}
-      visible={this.state.showModal}
-      transparent={true}
+    return <MyModal
+      isVisible={true}
+      toggleModal={this.props.toggleModal}
     >
   
-      <View style={styles.modalBackground}>
-        <View style={styles.modal}>
-      
-          {/*modal close button*/}
-          <View style={styles.close}>
-            <Text style={styles.closeButton} onPress={this.props.toggleModal}>Close</Text>
-          </View>
-      
-          {/*Drink type*/}
-          <View style={styles.modalRow}>
-            <Text  style={styles.modalRowLabel}>Drink</Text>
-            <Picker
-              selectedValue={this.state.selected}
-              mode={'dropdown'}
-              onValueChange={val => this.setState({selected: val})}
-              style={styles.modalRowInput}
-            >
-              {this.props.drinkTypes.map((drinkType,i) => <Picker.Item label={drinkType.name} value={i} key={drinkType.name}/>)}
-            </Picker>
-          </View>
-      
-          {/*Drink Amount*/}
-          <View style={styles.modalRow}>
-            <Text  style={styles.modalRowLabel}>Amount (oz)</Text>
-            <TextInput
-              keyboardType={'numeric'}
-              value={this.state.amount}
-              onChangeText={this.changeAmount}
-              style={styles.modalRowInput}
-            />
-          </View>
-          
-          {/*Date and Time*/}
-          <View style={styles.modalRow}>
-            
-            {/*Date*/}
-            <TouchableNativeFeedback
-              background={TouchableNativeFeedback.Ripple('red')}
-              delayPressIn={0}
-              onPress={this.editDate}
-            >
-              <View style={styles.button}>
-                <Text>{moment(this.state.time).format('MMM D')}</Text>
-              </View>
-            </TouchableNativeFeedback>
-  
-            {/*Time*/}
-            <TouchableNativeFeedback
-              background={TouchableNativeFeedback.Ripple('red')}
-              delayPressIn={0}
-              onPress={this.editTime}
-            >
-              <View style={styles.button}>
-                <Text>{moment(this.state.time).format('LT')}</Text>
-              </View>
-            </TouchableNativeFeedback>
-            
-          </View>
-  
-          {/*Submit*/}
-          <TouchableNativeFeedback
-            background={TouchableNativeFeedback.Ripple('red')}
-            delayPressIn={0}
-            onPress={this.submit}
-          >
-            <View style={styles.submitButton}>
-              <Text>{this.props.drinkTypeName ? 'Edit Drink' : 'Add Drink'}</Text>
-            </View>
-          </TouchableNativeFeedback>
-    
-        </View>
+      {/*Drink type*/}
+      <View style={styles.modalRow}>
+        <Text  style={styles.modalRowLabel}>Drink</Text>
+        <Picker
+          selectedValue={this.state.selected}
+          mode={'dropdown'}
+          onValueChange={val => this.setState({selected: val})}
+          style={styles.modalRowInput}
+        >
+          {this.props.drinkTypes.map((drinkType,i) => <Picker.Item label={drinkType.name} value={i} key={drinkType.name}/>)}
+        </Picker>
       </View>
-
-    </Modal>
+  
+      {/*Drink Amount*/}
+      <View style={styles.modalRow}>
+        <Text  style={styles.modalRowLabel}>Amount (oz)</Text>
+        <TextInput
+          keyboardType={'numeric'}
+          value={this.state.amount}
+          onChangeText={this.changeAmount}
+          style={styles.modalRowInput}
+        />
+      </View>
+  
+      {/*Date and Time*/}
+      <View style={styles.modalRow}>
+    
+        {/*Date*/}
+        <Button
+          buttonColor={grey}
+          rippleColor={'white'}
+          onPress={this.editDate}
+          style={styles.timeButton}
+        >
+          <Text style={styles.timeButtonText}>{moment(this.state.time).format('MMM D')}</Text>
+        </Button>
+    
+        {/*Time*/}
+        <Button
+          buttonColor={grey}
+          rippleColor={'white'}
+          onPress={this.editTime}
+          style={styles.timeButton}
+        >
+          <Text style={styles.timeButtonText}>{moment(this.state.time).format('LT')}</Text>
+        </Button>
+  
+      </View>
+      
+      <Button onPress={this.submit}>
+        <Text style={Button.defaultTextStyle}>Submit</Text>
+      </Button>
+    </MyModal>;
   }
 }
 
 const styles = {
-  button: {
-    flex: 1,
-    backgroundColor: grey,
-    borderRadius: 2,
-    marginHorizontal: 20,
-    padding: 5
-  },
-  
-  close: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
-  },
-  
-  closeButton: {
-    color: 'red'
-  },
-  
-  modalBackground: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    flex: 1,
-    justifyContent: 'center'
-  },
-  
-  modal: {
-    backgroundColor: white,
-    padding: 20,
-    margin: 10,
-    borderRadius: 10
-  },
-  
   modalRow: {
     flex: 1,
     flexDirection: 'row',
@@ -222,16 +171,22 @@ const styles = {
   },
   
   modalRowInput: {
-    flex: 3
+    flex: 4,
+    justifyContent: 'center'
   },
   
-  submitButton: {
+  timeButton: {
+    marginVertical: 1,
+    marginHorizontal: 10,
+    elevation: 1
+  },
+  
+  timeButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
     flex: 1,
-    backgroundColor: primaryColor,
-    borderRadius: 2,
-    marginHorizontal: 2,
-    marginTop: 10,
-    padding: 1
+    textAlign: 'center',
+    textAlignVertical: 'center'
   }
 };
 
