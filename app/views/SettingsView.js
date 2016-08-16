@@ -5,6 +5,7 @@ import {ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import AddDrinkType from '../components/AddDrinkType';
 import DrinkTypeModal from '../components/DrinkTypeModal';
+import Row from '../components/Row';
 
 class SettingsView extends Component {
   /**
@@ -48,19 +49,12 @@ class SettingsView extends Component {
    * @param {Number} rowID
    */
   renderRow(drinkType, sectionID, rowID) {
-    return <View style={{flex: 1, flexDirection: 'row'}}>
-      <View style={{flex: 3}}>
-        <Text>{drinkType.name}, {drinkType.mgPerOz} mg per oz</Text>
-      </View>
-      
-      <View style={{flex: 1}}>
-        <Text onPress={() => this.setState({isVisible: true, index: rowID})}>Edit</Text>
-      </View>
-  
-      <View style={{flex: 1}}>
-        <Text onPress={() => this.deleteDrinkType(rowID)}>Delete</Text>
-      </View>
-    </View>
+    return <Row 
+      topLabel={drinkType.name}
+      bottomLabel={drinkType.mgPerOz + ' mg per oz'}
+      edit={() => this.setState({isVisible: true, index: rowID})}
+      delete={() => this.deleteDrinkType(rowID)}
+    />;
   }
   
   render() {
@@ -72,17 +66,19 @@ class SettingsView extends Component {
     />;
     
     return <View style={{flex:1}}>
-      <View style={styles.head}>
+      <View style={{flex: 1}}>
         <Text style={styles.title}>Drink Types</Text>
       </View>
       
       {this.state.isVisible ? configuredModal : null}
       
-      <View style={{flex:4}}>
-        <ListView
-          dataSource={dataSource}
-          renderRow={this.renderRow}
-        />
+      <View style={{flex:6}}>
+        {this.props.drinkTypes.length !== 0 ? 
+          <ListView
+            dataSource={dataSource}
+            renderRow={this.renderRow}
+          /> : 
+          <Text style={styles.emptyText}>No Drink Types</Text>}
       </View>
       
       <View style={{flex:1}}>
@@ -93,11 +89,18 @@ class SettingsView extends Component {
 }
 
 const styles = {
-  head: {
-    height: 35
+  title: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 30
   },
   
-  title: {}
+  emptyText: {
+    margin: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 15
+  }
 };
 
 export default connect(({drinkTypes}) => ({drinkTypes}))(SettingsView);
