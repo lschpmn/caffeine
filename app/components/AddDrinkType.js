@@ -1,9 +1,9 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Text, TouchableNativeFeedback, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {primaryColor} from '../lib/COLORS';
+import Button from './Button';
 import DrinkTypeModal from '../components/DrinkTypeModal';
 
 class AddDrinkType extends Component {
@@ -36,36 +36,16 @@ class AddDrinkType extends Component {
       submit={this.addDrinkType}
     />;
     
-    return <View style={styles.container}>
-      <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple('red')}
-        delayPressIn={0}
+    return <View style={{flex: 1}}>
+      <Button
         onPress={() => this.setState({modalVisible: true})}
       >
-        <View style={styles.button}>
-          <Text>Add Drink Type</Text>
-          
-          {this.state.modalVisible ? configuredModal : null}
-          
-        </View>
-      </TouchableNativeFeedback>
+        <Text style={Button.defaultTextStyle}>Add Drink Type</Text>
+  
+        {this.state.modalVisible ? configuredModal : null}
+      </Button>
     </View>
   }
 }
 
 export default connect()(AddDrinkType);
-
-const styles = {
-  container: {
-    height: 20
-  },
-  
-  button: {
-    flex: 1,
-    backgroundColor: primaryColor,
-    borderRadius: 2,
-    marginHorizontal: 20,
-    height: 45,
-    padding: 1
-  }
-};
