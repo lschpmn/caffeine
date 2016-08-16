@@ -114,6 +114,7 @@ export default class RootComponent extends Component {
         <Navigator
           initialRoute={{title: 'root', index: 0}}
           renderScene={this.routeChange}
+          configureScene={() => Navigator.SceneConfigs.FloatFromRight}
       
           navigationBar={
             <Navigator.NavigationBar
