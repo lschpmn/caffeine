@@ -1,12 +1,11 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {ListView, Text, TouchableNativeFeedback, View} from 'react-native';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import {ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {red} from '../lib/COLORS';
 import DrinkModal from './DrinkModal';
 import {calculateCaffeineLevel} from '../lib/functions';
+import Row from './Row';
 
 class DrinkList extends Component {
   /**
@@ -69,36 +68,12 @@ class DrinkList extends Component {
     const caffeineLevel = calculateCaffeineLevel(drink.mgPerOz * drink.amount, drink.created);
     const age = this.createdTimeToHumanReadable(drink.created);
     
-    return <View style={{...styles.row}} elevation={3}>
-      <View style={{flex: 5}}>
-        <Text>{~~caffeineLevel} mg from {drink.amount} oz of {drink.name}</Text>
-        <Text>Taken {age} ago</Text>
-      </View>
-      
-      <View style={{flex: 1}}>
-        <TouchableNativeFeedback
-          onPress={() => this.toggleModal(+rowID)}
-          background={TouchableNativeFeedback.Ripple('grey')}
-          delayPressIn={0}
-        >
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <MaterialIcon name="mode-edit" size={30} style={{textAlign: 'center'}} />
-          </View>
-        </TouchableNativeFeedback>
-      </View>
-  
-      <View style={{flex: 1}}>
-        <TouchableNativeFeedback
-          onPress={() => this.deleteDrink(+rowID)}
-          background={TouchableNativeFeedback.Ripple('red')}
-          delayPressIn={0}
-        >
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <MaterialIcon name="delete" size={30} color={red} style={{textAlign: 'center'}} />
-          </View>
-        </TouchableNativeFeedback>
-      </View>
-    </View>;
+    return <Row 
+      topLabel={`${~~caffeineLevel} mg from ${drink.amount} oz of ${drink.name}`}
+      bottomLabel={`Taken ${age} ago`}
+      edit={() => this.toggleModal(+rowID)}
+      delete={() => this.deleteDrink(+rowID)}
+    />;
   }
   
   toggleModal(index) {
@@ -145,16 +120,6 @@ const styles = {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 15
-  },
-  
-  row: {
-    backgroundColor: 'white',
-    borderRadius: 3,
-    flex: 1,
-    flexDirection: 'row',
-    marginHorizontal: 10,
-    marginVertical: 5,
-    paddingHorizontal: 5
   }
 };
 
