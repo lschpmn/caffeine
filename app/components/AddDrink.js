@@ -1,11 +1,10 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Text, TouchableNativeFeedback , View} from 'react-native';
+import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import Button from './Button';
 import DrinkModal from './DrinkModal';
-import {primaryColor, white} from '../lib/COLORS';
 
 class AddDrink extends Component {
   /**
