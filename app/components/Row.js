@@ -59,6 +59,7 @@ const styles = {
     flexDirection: 'row',
     marginHorizontal: 10,
     marginVertical: 5,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    paddingVertical: 3
   }
 };
