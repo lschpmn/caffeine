@@ -52,8 +52,8 @@ class SettingsView extends Component {
     return <Row 
       topLabel={drinkType.name}
       bottomLabel={drinkType.mgPerOz + ' mg per oz'}
-      edit={() => this.setState({isVisible: true, index: rowID})}
-      delete={() => this.deleteDrinkType(rowID)}
+      edit={() => this.setState({isVisible: true, index: +rowID})}
+      delete={() => this.deleteDrinkType(+rowID)}
     />;
   }
   
