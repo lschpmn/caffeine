@@ -1,8 +1,9 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Modal, Text, View} from 'react-native';
-import {white} from '../lib/COLORS';
+import {Modal, View} from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import {red, white} from '../lib/COLORS';
 
 export default class MyModal extends Component {
   /**
@@ -27,7 +28,13 @@ export default class MyModal extends Component {
   
           {/*modal close button*/}
           <View style={styles.close}>
-            <Text style={styles.closeButton} onPress={this.props.toggleModal}>Close</Text>
+            <MaterialIcon 
+              name="clear" 
+              size={30} 
+              color={red} 
+              style={{textAlign: 'center'}} 
+              onPress={this.props.toggleModal} 
+            />
           </View>
           
           {this.props.children}
