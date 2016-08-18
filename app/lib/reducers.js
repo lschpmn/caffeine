@@ -1,22 +1,7 @@
 'use strict';
 
-const drinksInit = [{
-  name: 'Pill',
-  mgPerOz: 200,
-  amount: 5,
-  created: Date.now()
-}];
-
-const drinkTypesInit = [
-  {
-    name: 'Pill',
-    mgPerOz: 200
-  },
-  {
-    name: 'Coffee',
-    mgPerOz: 50
-  }
-];
+const drinkTypesInit = require('./drink-types.json');
+const drinksInit = [];
 
 export function drinksReducer(state = drinksInit, action) {
   switch (action.type) {
