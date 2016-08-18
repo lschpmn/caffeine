@@ -1,0 +1,82 @@
+[
+  {
+    "name": "5 Hour Energy",
+    "mgPerOz": 100
+  },
+  {
+    "name": "Arizona Iced Tea",
+    "mgPerOz": 1.9
+  },
+  {
+    "name": "Caffeine Pill",
+    "mgPerOz": 200
+  },
+  {
+    "name": "Coffee",
+    "mgPerOz": 20
+  },
+  {
+    "name": "Coca Cola",
+    "mgPerOz": 2.8
+  },
+  {
+    "name": "Coke Zero",
+    "mgPerOz": 2.8
+  },
+  {
+    "name": "Diet Coke",
+    "mgPerOz": 3.8
+  },
+  {
+    "name": "Diet Dr Pepper",
+    "mgPerOz": 3.4
+  },
+  {
+    "name": "Diet Mountain Dew",
+    "mgPerOz": 4.5
+  },
+  {
+    "name": "Diet Pepsi",
+    "mgPerOz": 2.8
+  },
+  {
+    "name": "Diet RC Cola",
+    "mgPerOz": 3.9
+  },
+  {
+    "name": "Dr Pepper",
+    "mgPerOz": 3.4
+  },
+  {
+    "name": "Espresso",
+    "mgPerOz": 50
+  },
+  {
+    "name": "Monster Energy Drink",
+    "mgPerOz": 10
+  },
+  {
+    "name": "Mountain Dew",
+    "mgPerOz": 4.5
+  },
+  {
+    "name": "Pepsi",
+    "mgPerOz": 3.2
+  },
+  {
+    "name": "RC Cola",
+    "mgPerOz": 3.7
+  },
+  {
+    "name": "Red Bull",
+    "mgPerOz": 0.5
+  },
+  {
+    "name": "Tea (Black)",
+    "mgPerOz": 5.2
+  },
+  {
+    "name": "Tea (Green)",
+    "mgPerOz": 3.1
+  }
+]
