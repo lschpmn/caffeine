@@ -1,9 +1,9 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Text, TextInput, TouchableNativeFeedback, View} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 import {connect} from 'react-redux';
-import {primaryColor} from '../lib/COLORS';
+import Button from './Button';
 import MyModal from './MyModal';
 
 class DrinkTypeModal extends Component {
@@ -50,52 +50,35 @@ class DrinkTypeModal extends Component {
       toggleModal={this.props.closeModal}
     >
       {/*Drink name*/}
-      <View style={{flex: 1,flexDirection: 'row'}}>
-        <Text style={{flex: 1}}>Drink</Text>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <Text style={{flex: 1, textAlignVertical: 'center'}}>Drink</Text>
     
         <TextInput
           value={this.state.drinkInput}
           onChangeText={newText => this.setState({drinkInput: newText})}
-          style={{flex: 3}}
+          style={{flex: 2, justifyContent: 'center'}}
         />
       </View>
   
       {/*Mg per Oz input*/}
-      <View style={{flex: 1,flexDirection: 'row'}}>
-        <Text style={{flex: 1}}>Mg per Oz</Text>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <Text style={{flex: 1, textAlignVertical: 'center'}}>Mg per Oz</Text>
     
         <TextInput
           value={''+this.state.drinkAmount}
           onChangeText={newText => this.setState({drinkAmount: +newText})}
-          style={{flex: 3}}
+          style={{flex: 2, justifyContent: 'center'}}
           keyboardType={'numeric'}
         />
       </View>
   
       {/*Submit*/}
-      <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple('red')}
-        delayPressIn={0}
-        onPress={this.submit}
-      >
-        <View style={styles.submitButton}>
-          <Text>{this.props.index !== -1 ? 'Edit Drink Type' : 'Add Drink Type'}</Text>
-        </View>
-      </TouchableNativeFeedback>
+      <Button onPress={this.submit} >
+        <Text style={Button.defaultTextStyle}>{this.props.index !== -1 ? 'Edit Drink Type' : 'Add Drink Type'}</Text>
+      </Button>
     </MyModal>;
   }
 }
-
-const styles = {
-  submitButton: {
-    flex: 1,
-    backgroundColor: primaryColor,
-    borderRadius: 2,
-    marginHorizontal: 2,
-    marginTop: 10,
-    padding: 1
-  }
-};
 
 export default connect(({drinkTypes}) => ({drinkTypes}))(DrinkTypeModal);
 
