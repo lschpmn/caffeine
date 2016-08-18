@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {Alert, Text, TextInput, View} from 'react-native';
 import {connect} from 'react-redux';
 import Button from './Button';
 import MyModal from './MyModal';
@@ -39,6 +39,14 @@ class DrinkTypeModal extends Component {
       name: this.state.drinkInput,
       mgPerOz: this.state.drinkAmount
     };
+  
+    if(drinkType.name.length === 0) {
+      Alert.alert('Drink Type Needs a Name!');
+      return;
+    } else if(drinkType.mgPerOz === 0) {
+      Alert.alert(`Drink Type Amount can't be 0.`);
+      return;
+    }
     
     this.props.submit(drinkType);
     this.props.closeModal();
