@@ -62,7 +62,7 @@ export default class RootComponent extends Component {
     
     switch(route.title) {
       case 'settings':
-        view = <SettingsView />;
+        view = <SettingsView navigator={navigator} />;
         break;
       case 'root':
       default:
@@ -77,14 +77,15 @@ export default class RootComponent extends Component {
       if(route.index === 0) return null;
       
       return <TouchableNativeFeedback
-        onPress={() => nav.jumpBack()}
+        onPress={() => nav.pop()}
         background={TouchableNativeFeedback.Ripple('white')}
         delayPressIn={0}
       >
         <View style={{flex: 1}}>
           <Icon
             name='keyboard-arrow-left'
-            color={white} size={30}
+            color={white} 
+            size={30}
             style={styles.settingsIcon}
           />
         </View>
@@ -102,7 +103,8 @@ export default class RootComponent extends Component {
         <View style={{flex: 1}}>
           <Icon
             name='settings'
-            color={white} size={30}
+            color={white} 
+            size={30}
             style={styles.settingsIcon}
           />
         </View>

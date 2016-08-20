@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import {ListView, Text, View} from 'react-native';
+import {BackAndroid, ListView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import AddDrinkType from '../components/AddDrinkType';
 import DrinkTypeModal from '../components/DrinkTypeModal';
@@ -11,6 +11,7 @@ class SettingsView extends Component {
   /**
    * @param {drink[]} props.drinkTypes
    * @param {Redux.Dispatch} props.dispatch
+   * @param {navigator} props.navigator
    */
   constructor(props) {
     super(props);
@@ -21,8 +22,14 @@ class SettingsView extends Component {
       index: -1
     };
     
+    this.backButton = this.backButton.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.submit = this.submit.bind(this);
+  }
+  
+  backButton() {
+    this.props.navigator.pop();
+    return true;
   }
   
   deleteDrinkType(index) {
@@ -55,6 +62,14 @@ class SettingsView extends Component {
       edit={() => this.setState({isVisible: true, index: +rowID})}
       delete={() => this.deleteDrinkType(+rowID)}
     />;
+  }
+  
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this.backButton);
+  }
+  
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.backButton);
   }
   
   render() {
