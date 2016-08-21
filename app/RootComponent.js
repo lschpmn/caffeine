@@ -122,7 +122,7 @@ export default class RootComponent extends Component {
             <Navigator.NavigationBar
               routeMapper={{
                 LeftButton: backButton,
-                Title: () => (<Text style={styles.navbarText}>Caffeine</Text>),
+                Title: () => (<Text style={styles.navbarText}>Boost</Text>),
                 RightButton: settingsButton
               }}
               
