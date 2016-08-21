@@ -9,13 +9,13 @@ import Row from './Row';
 
 class DrinkList extends Component {
   /**
-   * @param {drink[]} props.drinks
-   * @param {Number} props.currTime
-   * @param {Redux.Dispatch} props.dispatch
+   * @param {drink[]} _props.drinks
+   * @param {Number} _props.currTime
+   * @param {Redux.Dispatch} _props.dispatch
    */
-  constructor(props) {
-    super(props);
-    this.props = props;
+  constructor(_props) {
+    super(_props);
+    this.props = _props;
     this.state = {
       ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       showModal: false,
@@ -94,6 +94,17 @@ class DrinkList extends Component {
         showModal: false
       });
     }
+  }
+  
+  componentWillReceiveProps({currTime}) {
+    //clears drinks once the caffeine they contribute gets too low
+    this.props.drinks.forEach((drink, i) => {
+      if(currTime - drink.created < 3600000) return;
+      
+      const amount = calculateCaffeineLevel(drink.amount * drink.mgPerOz, drink.created);
+      
+      if(amount < 1) this.deleteDrink(i);
+    });
   }
   
   render() {
