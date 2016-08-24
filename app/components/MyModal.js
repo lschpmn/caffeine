@@ -7,17 +7,17 @@ import {red, white} from '../lib/COLORS';
 
 export default class MyModal extends Component {
   /**
-   * @param {Boolean} props.isVisible
-   * @param {Function} props.toggleModal
+   * @param {Boolean} _props.isVisible
+   * @param {Function} _props.toggleModal
    */
-  constructor(props) {
-    super(props);
-    this.props = props;
+  constructor(_props) {
+    super(_props);
+    this.props = _props;
   }
   
   render() {
     return <Modal
-      onRequestClose={() => {}}
+      onRequestClose={this.props.toggleModal}
       visible={this.props.isVisible}
       transparent={true}
       animationType={'slide'}
