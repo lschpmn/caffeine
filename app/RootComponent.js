@@ -21,15 +21,14 @@ export default class RootComponent extends Component {
     
     this.state = {store: createStore(reducer)};
     
-    setInterval(() => this.state.store.dispatch({type: 'UPDATE_TIME'}), 1000);
-    
     this.routeChange = this.routeChange.bind(this);
   }
   
   componentDidMount() {
     const store = this.state.store;
     
-    AsyncStorage.getItem('drinks')
+    const drinkPromise = AsyncStorage
+      .getItem('drinks')
       .then(drinks => {
         if(!drinks) return;
         
@@ -39,7 +38,8 @@ export default class RootComponent extends Component {
         });
       });
     
-    AsyncStorage.getItem('drinkTypes')
+    const drinkTypePromose = AsyncStorage
+      .getItem('drinkTypes')
       .then(drinkTypes => {
         if(!drinkTypes) return;
   
@@ -47,6 +47,12 @@ export default class RootComponent extends Component {
           type: 'REPLACE_DRINK_TYPES',
           drinkTypes: JSON.parse(drinkTypes)
         });
+      });
+    
+    Promise.all([drinkPromise, drinkTypePromose])
+      .then(() => {
+        this.state.store.dispatch({type: 'UPDATE_TIME'});
+        setInterval(() => this.state.store.dispatch({type: 'UPDATE_TIME'}), 1000);
       });
     
     store.subscribe(() => {
