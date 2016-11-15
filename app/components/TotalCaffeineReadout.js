@@ -2,11 +2,8 @@
 
 import React,{Component} from 'react';
 import {Text, View} from 'react-native';
-import {getTheme} from 'react-native-material-kit';
 import {connect} from 'react-redux';
 import {calculateCaffeineLevel} from '../lib/functions';
-
-const theme = getTheme();
 
 class TotalCaffeineReadout extends Component {
   /**
@@ -23,9 +20,9 @@ class TotalCaffeineReadout extends Component {
       return prev + calculateCaffeineLevel(drink.mgPerOz * drink.amount, drink.created);
     }, 0);
     
-    return <View style={style.container}>
-      <View style={{...theme.cardStyle, elevation: 5}}>
-        <Text style={{...style.text, ...theme.cardContentStyle}}>{~~total} Mg</Text>
+    return <View style={styles.container}>
+      <View style={styles.card}>
+        <Text style={{...styles.text}}>{~~total} Mg</Text>
       </View>
       </View>;
   }
@@ -33,7 +30,15 @@ class TotalCaffeineReadout extends Component {
 
 export default connect(({drinks, currTime}) => ({drinks, currTime}))(TotalCaffeineReadout);
 
-const style = {
+const styles = {
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 3,
+    elevation: 3,
+    flex: 1,
+    margin: 5,
+  },
+  
   container: {
     flex: 1,
     padding: 10
