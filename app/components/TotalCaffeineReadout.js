@@ -36,7 +36,6 @@ const styles = {
     borderRadius: 3,
     elevation: 3,
     flex: 1,
-    margin: 5,
   },
   
   container: {
